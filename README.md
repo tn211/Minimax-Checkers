@@ -23,7 +23,7 @@ Each checker is given a unique identifier (`checker_id`) that is stored in a dic
 
 ---
 
-**Successor func-on that generates AI moves**
+**Successor function that generates AI moves**
 
 My successor function is called `successor_function`. It accepts a color parameter because it needs to consider both players' possible moves. First, an empty list called `successors` is initialized, and then it iterates over every checker in the `self.checkers` dictionary. For the checkers of the appropriate color, it calls the `valid_moves` function to obtain every valid move for that piece. Next, all possible moves are generated and appended to the `successors` list as tuples containing the `checker_id` and destination square. Finally, the list is returned and used for evaluation by Minimax.
 
