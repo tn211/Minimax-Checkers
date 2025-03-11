@@ -37,7 +37,7 @@ A method called `minimax` handles Minimax evaluation and alpha-beta pruning. Dur
 
 **Heuristics**
 
-Heuristics are something I really struggled to implement correctly. I kept trying to add more complicated ones, such as evaluating the vulnerability of pieces, penalizing pieces for staying too close to the edge of the board, or priori9zing reaching King's Row. But these kept introducing serious slow-downs in gameplay and sometimes crashes. The only heuristic that I currently have in place considers the discrepancy between the counts of Red and Black pieces. Given that the objective of the game is to wipe out all pieces of the opposing side, it makes sense that the AI should want to maintain more pieces than Black.
+Heuristics are something I really struggled to implement correctly. I kept trying to add more complicated ones, such as evaluating the vulnerability of pieces, penalizing pieces for staying too close to the edge of the board, or prioritizing reaching King's Row. But these kept introducing serious slow-downs in gameplay and sometimes crashes. The only heuristic that I currently have in place considers the discrepancy between the counts of Red and Black pieces. Given that the objective of the game is to wipe out all pieces of the opposing side, it makes sense that the AI should want to maintain more pieces than Black.
 
 ---
 
@@ -67,19 +67,19 @@ Forced capture is implemented for both human and AI players, but in different wa
 
 **Multi-step capturing moves for User**
 
-after the first capture is made, `addi9onal_captures` is called to see if another capture is possible. If there is one, `addi9onal_capture_prompt` is called, which causes a window to appear asking the player if they'd like to make another capture or if they'd rather pass to the AI's turn.
+after the first capture is made, `additional_captures` is called to see if another capture is possible. If there is one, `additional_capture_prompt` is called, which causes a window to appear asking the player if they'd like to make another capture or if they'd rather pass to the AI's turn.
 
 ---
 
 **Multi-step capturing moves for AI**
 
-As with humans, after the first capture, `addi9onal_captures` is called to see if more are available. If there is another capture, the AI will automatically take it, and it's executed by `AI_capture`.
+As with humans, after the first capture, `additional_captures` is called to see if more are available. If there is another capture, the AI will automatically take it, and it's executed by `AI_capture`.
 
 ---
 
 **King conversion at baseline**
 
-When a player's piece reaches the opposite side of the board, it is instantly crowned king (denoted by a golden halo around the piece) and the turn ends, even if other captures are available. This is handled inside the `checker_movement` method, where an `if` statement evaluates whether a piece of either color has reached king's row. This sets the `is_king` and `becoming_king` Booleans to True and the piece is outlined in gold. Since `addi9onal_jumps` are only evaluated if `becoming_king` is False, multi-step captures are disabled and the turn ends.
+When a player's piece reaches the opposite side of the board, it is instantly crowned king (denoted by a golden halo around the piece) and the turn ends, even if other captures are available. This is handled inside the `checker_movement` method, where an `if` statement evaluates whether a piece of either color has reached king's row. This sets the `is_king` and `becoming_king` Booleans to True and the piece is outlined in gold. Since `additional_jumps` are only evaluated if `becoming_king` is False, multi-step captures are disabled and the turn ends.
 
 ---
 
@@ -97,7 +97,7 @@ During Black's turn, the valid moves for a given piece are highlighted on the bo
 
 **Board representation**
 
-The checkerboard is rendered in the GUI using only `Tkinter`. On startup, `board_rendering` is called by the constructor method and an 8x8 checkerboard is rendered on the screen. It is then populated by pieces by `checker_crea9on` and `checker_placement`.
+The checkerboard is rendered in the GUI using only `Tkinter`. On startup, `board_rendering` is called by the constructor method and an 8x8 checkerboard is rendered on the screen. It is then populated by pieces by `checker_creation` and `checker_placement`.
 
 ---
 
@@ -115,13 +115,13 @@ instructions can be found in a window that displays when the `Show Rules` toolba
 
 **Game interaction**
 
-I implemented a drag and drop mechanic to the GUI so that when the player clicks a piece, it is picked up un9l a destination square is clicked. If the destination is a valid move, then the piece is dropped. In the constructor method, `self.canvas.bind` is used to control what happens when the mouse is clicked, moved, and released. In `click_mechanics`, `drag_mechanics`, and `drop_mechanics`, `self.drag_data` is used to track the coordinates of the piece and place it in the destination square.
+I implemented a drag and drop mechanic to the GUI so that when the player clicks a piece, it is picked up until a destination square is clicked. If the destination is a valid move, then the piece is dropped. In the constructor method, `self.canvas.bind` is used to control what happens when the mouse is clicked, moved, and released. In `click_mechanics`, `drag_mechanics`, and `drop_mechanics`, `self.drag_data` is used to track the coordinates of the piece and place it in the destination square.
 
 ---
 
 **System pauses to show the intermediate legs of multi-step moves**
 
-I used Tkinter's `after` function in every place I could think of, but for some reason the AI s9ll makes multi-step captures without pausing. However, for the human there is a pause thanks to the window popping up to ask if they'd like to continue making captures.
+I used Tkinter's `after` function in every place I could think of, but for some reason the AI still makes multi-step captures without pausing. However, for the human there is a pause thanks to the window popping up to ask if they'd like to continue making captures.
 
 ---
 
