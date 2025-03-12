@@ -22,7 +22,7 @@ class Checkers(tk.Tk):
                                  command=self.display_rules)
         rules_button.pack(side="left", padx=5, pady=5)
 
-       # This creates the Rules button on the toolbar.
+       # This creates the Difficulty button on the toolbar.
         difficulty_button = tk.Button(self.toolbar,
                                       text="Change Difficulty",
                                       command=self.difficulty_selector)
